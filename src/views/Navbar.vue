@@ -16,10 +16,10 @@
               <router-link class="text-light text-decoration-none hover-orange" :to="{name: 'search'}">Búsquedas</router-link>
             </li>
             <li class="nav-item ms-lg-3">
-              <router-link class="text-light text-decoration-none hover-orange" :to="{name: 'search'}">Ventas</router-link>
+              <router-link class="text-light text-decoration-none hover-orange" :to="{name: 'gamesale'}">Ventas</router-link>
             </li>
             <li class="nav-item ms-lg-3">
-              <router-link class="text-light text-decoration-none hover-orange" :to="{name: 'search'}">Total</router-link>
+              <router-link class="text-light text-decoration-none hover-orange" :to="{name: 'totalsales'}">Total</router-link>
             </li>
           </ul>
         </div>

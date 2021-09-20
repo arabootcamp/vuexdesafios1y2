@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>Cantidad de juegos totales: {{totalProduct}}</p>
+    <p>Cantidad de juegos totales: {{registeredGames}}</p>
     <p>Cantidad de stock total: {{totalStock}}</p>
   </div>
 </template>
@@ -9,14 +9,12 @@
   export default {
     name: 'TotalGames',
     computed: {
-      totalProduct() {
-        return this.$store.getters.getTotalProduct;
+      registeredGames() {
+        return this.$store.getters.getRegisteredGames;
       },
       totalStock() {
         return this.$store.getters.getTotalStock;
       }
     }
-
-
   }
 </script>

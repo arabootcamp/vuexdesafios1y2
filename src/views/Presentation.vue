@@ -2,8 +2,8 @@
   <div>
     <Navbar/>
     <header class="text-center mt-5">
-      <h1>32bits</h1>
-      <h2>Juegos de PC y consolas</h2>
+      <h1>{{shop}}</h1>
+      <h2>{{legend}}</h2>
     </header>
   </div>
 </template>
@@ -13,6 +13,14 @@
   export default {
     components:{
       Navbar
+    },
+    computed:{
+      shop(){
+        return this.$store.getters.getShop;
+      },
+      legend(){
+        return this.$store.getters.getLegend;
+      }
     }
   }
 </script>

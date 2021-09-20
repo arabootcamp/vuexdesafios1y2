@@ -20,7 +20,7 @@
       <section>
         <h2 class="mb-5">Listado de juegos con stock</h2>
         <!-- Incluir la propiedad sin valor implicará `true` -->
-        <ListStockColors bgColor/>
+        <ListStockColors/>
       </section>
     </div>
   </div>

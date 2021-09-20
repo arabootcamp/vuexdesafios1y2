@@ -5,7 +5,8 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    otracosa: 'otracosa',
+    shop: '32bit',
+    legend: 'Juegos de PC y consolas',
     product: [{
         codigo: "0001",
         nombre: "Sekiro",
@@ -65,7 +66,7 @@ const store = new Vuex.Store({
       {
         codigo: "0012",
         nombre: "B",
-        stock: "10",
+        stock: "2",
         precio: "20000",
         color: "green",
         destacado: "true"
@@ -94,24 +95,102 @@ const store = new Vuex.Store({
         color: "red",
         destacado: "true"
       }
-
-    ]
+    ],
+    sales: []
   },
   getters: {
+    getShop: state => {
+      return state.shop;
+    },
+    getLegend: state => {
+      return state.legend;
+    },
     getProductStock: state => {
       return state.product.filter((el) => el.stock > 0);
     },
-    getTotalProduct: (state, getters) => {
-      return getters.getProductStock.length;
+    getRegisteredGames: (state) => {
+      return state.product.length;
     },
     getTotalStock: (state) => {
       let total = 0;
       state.product.forEach(el => total += parseInt(el.stock));
       return total;
+    },
+    getGamesWithStock(state,getters){
+      return getters.getProductStock.length;
+    },
+    getSales: (state) => {
+      return state.sales;
+    },
+    getTotalSalesAmount: (state)=>{
+      let total = 0;
+      state.sales.forEach(el => {
+        total += parseInt(el.precio)
+      });
+      return total;
     }
   },
-  mutations: {},
-  actions: {}
+  mutations: {
+    removeOneGame(state, payload) {
+      const index = state.product.findIndex((el) => (el.codigo == payload.codigo && el.stock > 0));
+      if (index != -1) {
+        state.product[index].stock -= 1
+        payload.status = 'success';
+        payload.index=index;
+      } else
+        payload.status = 'failure';
+    },
+    addSale(state, payload) {
+      payload.add = 'process';
+      state.sales.push({
+        codigo: payload.codigo,
+        nombre: state.product[payload.index].nombre,
+        precio: state.product[payload.index].precio
+      });
+      payload.add = 'success';
+    }
+  },
+  actions: {
+    sell({
+      dispatch
+    }, payload) {
+      dispatch('processSale', payload).
+      then(() => dispatch('registerSale', payload))
+        .then(() => {
+          alert('Venta procesada');
+        })
+        .catch(() => {
+          alert('Venta rechazada. No hay stock o el producto no existe');
+        });
+    },
+    processSale({
+      commit
+    }, payload) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          payload.status='process';
+          commit('removeOneGame', payload);
+          if (payload.status == 'success')
+            resolve();
+          else
+            reject();
+        }, 0);//colocar luego en 2000
+      });
+    },
+    registerSale({
+      commit
+    }, payload) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          commit('addSale', payload);
+          if (payload.add == 'success')
+            resolve();
+          else
+            reject();
+        }, 0);//colocar luego en 1000
+      });
+    }
+  }
 });
 
 export default store;
