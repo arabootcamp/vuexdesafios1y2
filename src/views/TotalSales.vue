@@ -8,10 +8,11 @@
         <h2>Listado total de ventas</h2>
         <RenderTable :arrayData="sales" />
       </section>
-      <hr />
+      
       <section class="mb-5">
-        <h2 class="mb-5">Monto total de ventas: {{totalSalesAmount}}</h2>
+        <h2 class="mb-5 pt-5">Monto total de ventas: {{totalSalesAmount}}</h2>
       </section>
+
     </div>
   </div>
 </template>
@@ -27,7 +28,6 @@
     },
     computed: {
       sales() {
-        console.log(this.$store.getters.getSales)
         return this.$store.getters.getSales;
       },
       totalSalesAmount() {

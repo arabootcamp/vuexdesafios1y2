@@ -15,7 +15,7 @@
           :key="index"
           :style="[
             bgColorTable
-              ? { backgroundColor: obj.color }
+              ? { backgroundColor: obj.color, color:'#aaa'}
               : { backgroundColor: 'transparent' },
           ]"
         >
@@ -35,7 +35,7 @@
 export default {
   name: "RenderTable",
   props: {
-    bgColotTable: {
+    bgColorTable: {
       type: Boolean,
       default: false,
     },

@@ -5,11 +5,11 @@
       <h1 class="mb-5 text-secondary">Vista de venta de juegos</h1>
       <hr />
       <section class="mb-5">
-        <h2 class="mb-5">Cantidad de juegos con stock: {{getGamesWithStock}}</h2>
+        <h2 class="mb-5">Cantidad de juegos con stock: {{numberGamesWithStock}}</h2>
       </section>
-      <hr />
+
       <section>
-        <productStockTable :callSales="true" />
+        <RenderTable :arrayData="gamesWithStock" :btnSale="true" />
       </section>
     </div>
   </div>
@@ -17,15 +17,18 @@
 
 <script>
   import Navbar from './Navbar.vue';
-  import ProductStockTable from '../components/ProductStockTable.vue';
+  import RenderTable from '../components/RenderTable.vue';
 
   export default {
     components: {
       Navbar,
-      ProductStockTable,
+      RenderTable,
     },
     computed: {
-      getGamesWithStock() {
+      numberGamesWithStock() {
+        return this.$store.getters.getNumberGamesWithStock;
+      },
+      gamesWithStock() {
         return this.$store.getters.getGamesWithStock;
       }
     }

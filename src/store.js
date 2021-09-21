@@ -105,24 +105,27 @@ const store = new Vuex.Store({
     getLegend: state => {
       return state.legend;
     },
-    getProductStock: state => {
+    getAllGames: state => {
+      return state.product;
+    },
+    getNumberRegisteredGames: state => {
+      return state.product.length;
+    },
+    getGamesWithStock: state => {
       return state.product.filter((el) => el.stock > 0);
     },
-    getRegisteredGames: (state) => {
-      return state.product.length;
+    getNumberGamesWithStock: (state,getters) => {
+      return getters.getGamesWithStock.length;
     },
     getTotalStock: (state) => {
       let total = 0;
       state.product.forEach(el => total += parseInt(el.stock));
       return total;
     },
-    getGamesWithStock(state,getters){
-      return getters.getProductStock.length;
-    },
     getSales: (state) => {
       return state.sales;
     },
-    getTotalSalesAmount: (state)=>{
+    getTotalSalesAmount: (state) => {
       let total = 0;
       state.sales.forEach(el => {
         total += parseInt(el.precio)
@@ -136,7 +139,7 @@ const store = new Vuex.Store({
       if (index != -1) {
         state.product[index].stock -= 1
         payload.status = 'success';
-        payload.index=index;
+        payload.index = index;
       } else
         payload.status = 'failure';
     },
@@ -168,13 +171,13 @@ const store = new Vuex.Store({
     }, payload) {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
-          payload.status='process';
+          payload.status = 'process';
           commit('removeOneGame', payload);
           if (payload.status == 'success')
             resolve();
           else
             reject();
-        }, 0);//colocar luego en 2000
+        }, 0); //colocar luego en 2000
       });
     },
     registerSale({
@@ -187,7 +190,7 @@ const store = new Vuex.Store({
             resolve();
           else
             reject();
-        }, 0);//colocar luego en 1000
+        }, 0); //colocar luego en 1000
       });
     }
   }
