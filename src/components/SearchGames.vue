@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <hr />
     <section class="mb-5">
       <h2 class="mb-5">Cantidad de juegos totales y de stock total</h2>
@@ -17,12 +16,6 @@
     </section>
 
     <hr />
-    <section>
-      <h2 class="mb-5">Listado de juegos con stock</h2>
-      <!-- Incluir la propiedad sin valor implicará `true` -->
-      <ProductStock />
-    </section>
-
     <section class="my-5 text-center">
       <RenderTable :arrayData="filteredGames" :bgColorTable="true" />
     </section>
@@ -30,7 +23,8 @@
 </template>
 
 <script>
-  import RenderTable from './RenderTable.vue'
+  import RenderTable from './RenderTable.vue';
+  import {mapGetters} from 'vuex';
   export default {
     components: {
       RenderTable,
@@ -42,18 +36,12 @@
       }
     },
     computed: {
-      numberRegisteredGames() {
-        return this.$store.getters.getNumberRegisteredGames;
-      },
-      numberGamesWithStock() {
-        return this.$store.getters.getNumberGamesWithStock;
-      },
-      totalStock() {
-        return this.$store.getters.getTotalStock;
-      },
-      gamesWithStock() {
-        return this.$store.getters.getGamesWithStock;
-      },
+      ...mapGetters(
+        {numberRegisteredGames:'getNumberRegisteredGames',
+         numberGamesWithStock:'getNumberGamesWithStock',
+         totalStock: 'getTotalStock',
+         gamesWithStock: 'getGamesWithStock'
+         }),
       filteredGames() {
         if (this.searchFilter) {
           return this.gamesWithStock.filter((item) => {
