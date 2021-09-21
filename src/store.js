@@ -177,7 +177,7 @@ const store = new Vuex.Store({
             resolve();
           else
             reject();
-        }, 0); //colocar luego en 2000
+        }, 2000); 
       });
     },
     registerSale({
@@ -190,7 +190,7 @@ const store = new Vuex.Store({
             resolve();
           else
             reject();
-        }, 0); //colocar luego en 1000
+        }, 1000); 
       });
     }
   }
